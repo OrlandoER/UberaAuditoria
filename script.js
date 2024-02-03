@@ -8,7 +8,4 @@ function cambiarSeccion(seccion) {
   }
 }
 
-function pedirUber() {
-  // Lógica para enviar la solicitud de Uber, puedes mostrar un mensaje de confirmación aquí
-  alert('Uber solicitado con éxito!');
-}
+

@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <title>Pedir Uber</title>
+
+    <style>
+        .container {
+            margin-bottom: 80px; /* o ajusta el valor según sea necesario */
+        }
+    </style>
 </head>
 
 <body>
@@ -47,14 +53,62 @@
     </ul>
     <div class="container">
         <form id="pedidoForm">
-            <div class="form-group pt-4">
-                <label for="direccionPartida">Dirección de Partida</label>
-                <input type="text" class="form-control" id="direccionPartida" placeholder="Punto de partida" required>
+            <h3 class="pt-4">Dirección de partida</h3>
+            <div class="form-group pt-2">
+                <label for="calle">Calle</label>
+                <input type="text" class="form-control" id="calle" placeholder="Calle" required pattern="[a-zA-Z0-9\s]+">
+                <small id="calleError" class="form-text text-danger"></small>
             </div>
-            <div class="form-group">
-                <label for="direccionDestino">Dirección de Destino</label>
-                <input type="text" class="form-control" id="direccionDestino" placeholder="¿A dónde vas?" required>
+            <!-- Agregados campos de dirección -->
+            <div class="form-group pt-2">
+                <label for="numero">Número</label>
+                <input type="text" class="form-control" id="numero" placeholder="Número" required pattern="[0-9]+">
+                <small id="numeroError" class="form-text text-danger"></small>
             </div>
+            <div class="form-group pt-2">
+                <label for="colonia">Colonia</label>
+                <input type="text" class="form-control" id="colonia" placeholder="Colonia" required pattern="[a-zA-Z\s]+">
+                <small id="coloniaError" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group pt-2">
+                <label for="codigoPostal">Código Postal</label>
+                <input type="text" class="form-control" id="codigoPostal" placeholder="Código Postal" required pattern="[0-9]{5}">
+                <small id="codigoPostalError" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group pt-2">
+                <label for="alcaldia">Alcaldía</label>
+                <input type="text" class="form-control" id="alcaldia" placeholder="Alcaldía" required pattern="[a-zA-Z\s]+">
+                <small id="alcaldiaError" class="form-text text-danger"></small>
+            </div>
+
+            <h3 class="pt-2">Dirección de destino</h3>
+            <div class="form-group pt-2">
+                <label for="calle-dest">Calle</label>
+                <input type="text" class="form-control" id="calle-dest" placeholder="Calle" required pattern="[a-zA-Z0-9\s]+">
+                <small id="calleDestError" class="form-text text-danger"></small>
+            </div>
+            <!-- Agregados campos de dirección -->
+            <div class="form-group pt-2">
+                <label for="numero-dest">Número</label>
+                <input type="text" class="form-control" id="numero-dest" placeholder="Número" required pattern="[0-9]+">
+                <small id="numeroDestError" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group pt-2">
+                <label for="colonia-dest">Colonia</label>
+                <input type="text" class="form-control" id="colonia-dest" placeholder="Colonia" required pattern="[a-zA-Z\s]+">
+                <small id="coloniaDestError" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group pt-2">
+                <label for="codigoPostal-dest">Código Postal</label>
+                <input type="text" class="form-control" id="codigoPostal-dest" placeholder="Código Postal" required pattern="[0-9]{5}">
+                <small id="codigoPostalDestError" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group pt-2">
+                <label for="alcaldia-dest">Alcaldía</label>
+                <input type="text" class="form-control" id="alcaldia-dest" placeholder="Alcaldía" required pattern="[a-zA-Z\s]+">
+                <small id="alcaldiaDestError" class="form-text text-danger"></small>
+            </div>
+
             <div class="form-group">
                 <label for="tipoVehiculo">Elige un viaje</label>
                 <select class="form-control" id="tipoVehiculo">
@@ -63,17 +117,115 @@
                     <option value="UberBlack">UberBlack</option>
                 </select>
             </div>
-            <button type="
-    </div>
-    button" class="btn btn-success" onclick="pedirUber()">Pedir Uber</button>
         </form>
+        <button type="button" class="btn btn-success" onclick="validarYpedirUber()">Pedir Uber</button>
+    </div>
 
-        <!-- Scripts -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 
+    <script>
+        function validarYpedirUber() {
+            // Realizar las validaciones aquí
+            var calle = document.getElementById("calle");
+            var alcaldia = document.getElementById("alcaldia");
+            var numero = document.getElementById("numero");
+            var colonia = document.getElementById("colonia");
+            var codigoPostal = document.getElementById("codigoPostal");
+            var calleDest = document.getElementById("calle-dest");
+            var alcaldiaDest = document.getElementById("alcaldia-dest");
+            var numeroDest = document.getElementById("numero-dest");
+            var coloniaDest = document.getElementById("colonia-dest");
+            var codigoPostalDest = document.getElementById("codigoPostal-dest");
+            var tipoVehiculo = document.getElementById("tipoVehiculo").value;
+
+            // Expresiones regulares
+            var regexCalle = /[a-zA-Z0-9\s]+/;
+            var regexAlcaldia = /[a-zA-Z\s]+/;
+            var regexNumero = /[0-9]+/;
+            var regexColonia = /[a-zA-Z\s]+/;
+            var regexCodigoPostal = /[0-9]{5}/;
+
+            // Validaciones
+            if (!regexCalle.test(calle.value)) {
+                document.getElementById("calleError").innerHTML = "Ingresa una calle válida.";
+                return;
+            } else {
+                document.getElementById("calleError").innerHTML = "";
+            }
+            if (!regexNumero.test(numero.value)) {
+                document.getElementById("numeroError").innerHTML = "Ingresa un número válido.";
+                return;
+            } else {
+                document.getElementById("numeroError").innerHTML = "";
+            }
+            if (!regexColonia.test(colonia.value)) {
+                document.getElementById("coloniaError").innerHTML = "Ingresa una colonia válida.";
+                return;
+            } else {
+                document.getElementById("coloniaError").innerHTML = "";
+            }
+
+            if (!regexCodigoPostal.test(codigoPostal.value)) {
+                document.getElementById("codigoPostalError").innerHTML = "Ingresa un código postal válido.";
+                return;
+            } else {
+                document.getElementById("codigoPostalError").innerHTML = "";
+            }
+            if (!regexAlcaldia.test(alcaldia.value)) {
+                document.getElementById("alcaldiaError").innerHTML = "Ingresa una alcaldía válida.";
+                return;
+            } else {
+                document.getElementById("alcaldiaError").innerHTML = "";
+            }
+
+            if (!regexCalle.test(calleDest.value)) {
+                document.getElementById("calleDestError").innerHTML = "Ingresa una calle de destino válida.";
+                return;
+            } else {
+                document.getElementById("calleDestError").innerHTML = "";
+            }
+
+            if (!regexAlcaldia.test(alcaldiaDest.value)) {
+                document.getElementById("alcaldiaDestError").innerHTML = "Ingresa una alcaldía de destino válida.";
+                return;
+            } else {
+                document.getElementById("alcaldiaDestError").innerHTML = "";
+            }
+
+            if (!regexNumero.test(numeroDest.value)) {
+                document.getElementById("numeroDestError").innerHTML = "Ingresa un número de destino válido.";
+                return;
+            } else {
+                document.getElementById("numeroDestError").innerHTML = "";
+            }
+
+            if (!regexColonia.test(coloniaDest.value)) {
+                document.getElementById("coloniaDestError").innerHTML = "Ingresa una colonia de destino válida.";
+                return;
+            } else {
+                document.getElementById("coloniaDestError").innerHTML = "";
+            }
+
+            if (!regexCodigoPostal.test(codigoPostalDest.value)) {
+                document.getElementById("codigoPostalDestError").innerHTML = "Ingresa un código postal de destino válido.";
+                return;
+            } else {
+                document.getElementById("codigoPostalDestError").innerHTML = "";
+            }
+
+            // Si todas las validaciones son correctas, procede con la acción
+            pedirUber();
+        }
+
+        function pedirUber() {
+            // Lógica para pedir Uber
+            alert("Pedido de Uber realizado correctamente.");
+        }
+    </script>
 </body>
 
 </html>
